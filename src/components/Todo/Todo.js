@@ -3,24 +3,25 @@ import { connect } from 'react-redux';
 import List from './List/List';
 import Add from './Add/Add';
 class Todo extends Component {
-    todoItems;  
-       
+    todoItems;
+
     render() {
 
         this.todoItems = this.props.todoList.map((todo, index) => {
-            return <List key={index}  todoKey={index}  completed= {todo.completed} title={todo.title} 
+            return <List key={index}  todoKey={index}  completed= {todo.completed} title={todo.title}
             clicked = {this.props.onTodoCompetedHandler} />;
         });
-    
+
         return (
-            <section>
-                <Add 
+            <div class="container">
+                <Add
                 changed={this.updateTodoChange} addNew={this.props.onAddNew }/>
-                <ul>
+                <br/><br/>
+                <ul className="list-group">
                 {this.todoItems}
                 </ul>
-                
-            </section>
+
+            </div>
         );
     }
 }

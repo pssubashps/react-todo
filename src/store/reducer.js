@@ -1,8 +1,7 @@
 
 const initalState = {
     todos: [
-        { title: 'PHP', completed: false },
-        { title: 'Java', completed: true },
+        { title: 'What to do today', completed: false },
     ]
 };
 const reducer = (state = initalState, action) => {
@@ -14,7 +13,7 @@ const reducer = (state = initalState, action) => {
             ...state,
             todos: state.todos.concat({title:action.data,completed:false})
         };
-       
+
         case 'COMPLETE':
            const newState = {
                 ...state

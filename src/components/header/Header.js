@@ -2,9 +2,13 @@ import React from 'react';
 
 const header = (props) => {
     return (
-        <header>
-            <p>Header</p>
-        </header>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Todo App</a>
+          </div>
+        </div>
+      </nav>
     );
 }
 

@@ -7,19 +7,14 @@ const list = (props) => {
         title = <strike>{props.title}</strike>
     } else {
         title = <Aux>{props.title}</Aux>
-        button =  <button onClick={() => props.clicked(props.todoKey)}>Done</button>;
-
+        button =  <button className='badges' onClick={() => props.clicked(props.todoKey)}>Done</button>;
     }
-    
- 
-   
+
     return (
-        <Aux>
-            <li>
+            <li className="list-group-item">
                 {title}
                {button}
             </li>
-        </Aux>
     );
 };
 
