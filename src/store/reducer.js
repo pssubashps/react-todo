@@ -1,4 +1,5 @@
 import * as ActionTypes from './action-types';
+
 const initalState = {
     todos: [
         { title: 'What to do today', completed: false },
@@ -6,8 +7,32 @@ const initalState = {
     editMode:false,
     editIndex:0
 };
-const reducer = (state = initalState, action) => {
 
+const updateTodostatus = (state,todoId,status) => {
+  const newState = {
+       ...state
+   };
+
+   newState.todos = newState.todos.map((todoItem, index) => {
+     if(index === todoId) {
+       todoItem = { ...todoItem, completed: status };
+     }
+     return todoItem;
+   });
+   return newState;
+}
+
+const deleteTodo = (state,todoId) => {
+  const deleteState = {
+      ...state
+  };
+  deleteState.todos = deleteState.todos.filter((todoItem, index) => {
+    return index !== todoId;
+  });
+  return deleteState;
+}
+
+const reducer = (state = initalState, action) => {
     switch (action.type) {
         case ActionTypes.ADD:
             return {
@@ -20,7 +45,6 @@ const reducer = (state = initalState, action) => {
                 editMode: false,
                 editIndex: 0
             };
-
             updatedState.todos = updatedState.todos.map((todoItem, index) => {
               if(index === action.data.todoId) {
                 todoItem = { ...todoItem, title:action.data.title,completed: false };
@@ -28,45 +52,18 @@ const reducer = (state = initalState, action) => {
               return todoItem;
             });
             return updatedState;
-
         case ActionTypes.DELETE:
-            const deleteState = {
-                ...state
-            };
-            deleteState.todos = deleteState.todos.filter((todoItem, index) => {
-              return index !== action.todoId;
-            });
-            return deleteState;
-
-            case ActionTypes.EDIT:
-            return {
-                ...state,
-                editMode: true,
-                editIndex: action.todoId
-            };
+              return deleteTodo(state,action.todoId);
         case ActionTypes.COMPLETE:
-            const newState = {
-                 ...state
-             };
-
-             newState.todos = newState.todos.map((todoItem, index) => {
-               if(index === action.todoId) {
-                 todoItem = { ...todoItem, completed: true };
-               }
-               return todoItem;
-             });
-             return newState;
+             return updateTodostatus(state,action.todoId,true);
         case ActionTypes.UNDO:
-             const undoState = {
-                  ...state
+              return updateTodostatus(state,action.todoId,false);
+        case ActionTypes.EDIT:
+              return {
+                  ...state,
+                  editMode: true,
+                  editIndex: action.todoId
               };
-              undoState.todos = undoState.todos.map((todoItem, index) => {
-                if(index === action.todoId) {
-                  todoItem = { ...todoItem, completed: false };
-                }
-                return todoItem;
-              });
-              return undoState;
         default:
             return state;
     }

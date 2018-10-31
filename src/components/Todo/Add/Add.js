@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import * as ActionTypes from '../../../store/action-types';
+import * as Actions from '../../../store/actions';
 
 class Add extends Component{
 
@@ -12,8 +12,6 @@ class Add extends Component{
     handleSubmit = (event) => {
       const {editMode,editIndex} = { ...this.props.state};
       event.preventDefault();
-      console.log()
-      console.log('The value is: ' + this.state.title);
       if(editMode){
           this.props.updateTodo({title:this.state.title,todoId:editIndex});
       }else{
@@ -59,8 +57,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        submitTodo: (title) => dispatch({type:ActionTypes.ADD,data:{title:title}}),
-        updateTodo: (payload) => dispatch({type:ActionTypes.UPDATE,data:payload}),
+        submitTodo: (title) => dispatch(Actions.addTodo(title)),
+        updateTodo: (payload) => dispatch(Actions.updateTodo(payload)),
     }
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import List from './List/List';
 import Add from './Add/Add';
-import * as ActionTypes from '../../store/action-types';
+import * as Actions from '../../store/actions';
 
 class Todo extends Component {
 
@@ -67,11 +67,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        doneHandler: (index) => dispatch({type:ActionTypes.COMPLETE,todoId:index}),
-        undoHandler: (index) => dispatch({type:ActionTypes.UNDO,todoId:index}),
-        editHandler: (index) => dispatch({type:ActionTypes.EDIT,todoId:index}),
-        deleteHandler: (index) => dispatch({type:ActionTypes.DELETE,todoId:index}),
-        onAddNew: (value) => dispatch({type:ActionTypes.ADD,data:value})
+        doneHandler: (index) => dispatch(Actions.completeTodo(index)),
+        undoHandler: (index) => dispatch(Actions.undoTodo(index)),
+        editHandler: (index) => dispatch(Actions.getTodo(index)),
+        deleteHandler: (index) => dispatch(Actions.deleteTodo(index))
     }
 }
 
